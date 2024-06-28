@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.io.*;
-import java.text.*;
 
 public class Main {
     private static final String FILE_NAME = "productos.txt";
@@ -65,12 +64,24 @@ public class Main {
             for (int i = 0; i < insumos.length; i++) {
                 System.out.println((i + 1) + ". " + insumos[i][0]);
             }
+            System.out.println((insumos.length + 1) + ". Ingresar un producto nuevo");
 
             // Validar selección de insumo
-            int insumoSeleccionado = seleccionarOpcion(scanner, 1, insumos.length);
+            int insumoSeleccionado = seleccionarOpcion(scanner, 1, insumos.length + 1);
 
-            String nombreInsumo = insumos[insumoSeleccionado - 1][0];
-            String codigoInsumo = insumos[insumoSeleccionado - 1][1];
+            String nombreInsumo;
+            String codigoInsumo;
+
+            if (insumoSeleccionado == insumos.length + 1) {
+                // Ingresar nuevo producto
+                System.out.println("Ingrese el nombre del nuevo producto:");
+                nombreInsumo = scanner.nextLine();
+                System.out.println("Ingrese el código del nuevo producto:");
+                codigoInsumo = scanner.nextLine();
+            } else {
+                nombreInsumo = insumos[insumoSeleccionado - 1][0];
+                codigoInsumo = insumos[insumoSeleccionado - 1][1];
+            }
 
             // Ingresar y validar la fecha de vencimiento
             LocalDate fechaVencimiento = ingresarFecha(scanner, "Ingrese la fecha de vencimiento (DD/MM/YYYY):");
