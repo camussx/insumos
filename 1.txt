@@ -1,0 +1,2 @@
+Nro | Insumo | Conservación | Tiempo de Vida
+1 | Leche fresa 500 ml | Ambiente | -2 días
