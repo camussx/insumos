@@ -30,7 +30,7 @@ public class InsumosMJ {
 
     // Calcular la fecha de vencimiento
     public static String calculateExpirationDate(String productionDate, int shelfLifeDays) {
-        String[] parts = productionDate.split("-");
+        String[] parts = productionDate.split("/");
         int year = Integer.parseInt(parts[0]);
         int month = Integer.parseInt(parts[1]);
         int day = Integer.parseInt(parts[2]);
