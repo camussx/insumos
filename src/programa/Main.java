@@ -30,7 +30,8 @@ public class Main {
             System.out.println("\nElige una opción:");
             System.out.println("1. Registrar ingreso");
             System.out.println("2. Generar reporte");
-            System.out.println("3. Salir");
+            System.out.println("3. Eliminar producto"); // Nueva opción para eliminar productos
+            System.out.println("4. Salir");
 
             int opcion = scanner.nextInt();
             scanner.nextLine(); // Limpiar el buffer
@@ -43,6 +44,9 @@ public class Main {
                     generarReporte(cafeteria);
                     break;
                 case 3:
+                    eliminarProducto(cafeteria, scanner); // Llamada al nuevo método para eliminar productos
+                    break;
+                case 4:
                     continuar = false;
                     System.out.println("Saliendo...");
                     break;
@@ -108,13 +112,11 @@ public class Main {
 
     // Método para generar el reporte de productos
     public static void generarReporte(Cafeteria cafeteria) {
-        cafeteria.ordenarProductosPorVencimiento();  // Ordenar productos por fecha de vencimiento
         System.out.println("\nReporte de productos:");
-        System.out.println("Nro | Insumo | Conservación | Fecha de Vencimiento | Tiempo de Vida | Estado");
+        System.out.println("Nro | Código | Insumo | Conservación | Fecha de Vencimiento | Tiempo de Vida | Estado");
         int contador = 1;
-        for (Producto producto : cafeteria.getProductos()) {
-            System.out.println(contador + " | " + producto.getNombre() + " | " + producto.getConservacion() + " | " +
-                    producto.getFechaVencimiento().format(formatter) + " | " + producto.getDiasParaVencer() + " días | " + producto.getEstado());
+        for (Producto producto : cafeteria.getProductosOrdenadosPorVencimiento()) {
+            System.out.println(contador + " | " + producto.getCodigo() + " | " + producto.getNombre() + " | " + producto.getConservacion() + " | " + producto.getFechaVencimiento().format(formatter) + " | " + producto.getDiasParaVencer() + " días | " + producto.getEstado());
             contador++;
         }
 
@@ -125,6 +127,16 @@ public class Main {
         cafeteria.exportarReporte(nombreArchivo + ".txt");
         System.out.println("Reporte exportado exitosamente.");
     }
+
+
+    // Método para eliminar un producto
+    public static void eliminarProducto(Cafeteria cafeteria, Scanner scanner) {
+        System.out.println("Ingrese el número de registro del producto a eliminar:");
+        int numeroRegistro = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer
+        cafeteria.eliminarProducto(numeroRegistro);
+    }
+
 
     // Método para guardar los productos en un archivo
     public static void saveProducts(Cafeteria cafeteria) {
